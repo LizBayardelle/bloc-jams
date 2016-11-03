@@ -15,6 +15,7 @@
    ;
 
  window.onload = function() {
+     console.log('jofdsjildaj')
      var collectionContainer = document.getElementsByClassName('album-covers')[0];
      collectionContainer.innerHTML = '';
  
