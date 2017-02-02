@@ -72,7 +72,7 @@ var createSongRow = function(songNumber, songName, songLength) {
             }
          };
          var offHover = function(event) {
-             var songNumberCell = $(this).find('.song-item-number');
+            var songNumberCell = $(this).find('.song-item-number');
             var songNumber = parseInt(songNumberCell.attr('data-song-number'));
 
             if (songNumber !== currentlyPlayingSongNumber) {
@@ -202,9 +202,40 @@ var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
  
 
+/// Assignment-y Stuff Below ///
+
+var $playButton =  $('.main-controls .play-pause');
+
+var togglePlayFromPlayerBar() = function() {
+    if (currentlyPlayingSongNumber !== null) {
+        
+        // Change song number cell from play button to pause button
+        $(this).html(pauseButtonTemplate);
+        
+        // Change HTML of player bar's play to pause
+        $('.main-controls .play-pause').html(playerBarPauseButton);
+        
+        // Play song
+        currentSoundFile.play();  
+        
+    } else {
+        
+        // Change song number cell to play button
+        $(this).html(playButtonTemplate);
+        
+        // Change HTML of player bar's pause to play
+        $('.main-controls .play-pause').html(playerBarPlayButton);
+        
+        // Pause song
+        currentSoundFile.pause();  
+        
+    }
+};
+
 $(document).ready(function() {
      setCurrentAlbum(albumPicasso);
      $previousButton.click(previousSong);
      $nextButton.click(nextSong);
+     $playButton.click(togglePlayFromPlayerBar());
 });
 
