@@ -206,29 +206,36 @@ var $nextButton = $('.main-controls .next');
 
 var $playButton =  $('.main-controls .play-pause');
 
-var togglePlayFromPlayerBar() = function() {
-    if (currentlyPlayingSongNumber !== null) {
+var togglePlayFromPlayerBar = function() {
+    var songNumber = currentlyPlayingSongNumber || 1;
+    
+    if (!currentSoundFile || currentSoundFile.isPaused()) {
+        
+        setSong(songNumber);
+        
+        var $songNumberCell = $('.song-item-number[data-song-number="' + songNumber + '"]');
         
         // Change song number cell from play button to pause button
-        $(this).html(pauseButtonTemplate);
+        $songNumberCell.html(pauseButtonTemplate);
         
         // Change HTML of player bar's play to pause
         $('.main-controls .play-pause').html(playerBarPauseButton);
         
         // Play song
-        currentSoundFile.play();  
+        currentSoundFile.play();
         
     } else {
         
+        var $songNumberCell = $('.song-item-number[data-song-number="' + songNumber + '"]');
+        
         // Change song number cell to play button
-        $(this).html(playButtonTemplate);
+        $songNumberCell.html(playButtonTemplate);
         
         // Change HTML of player bar's pause to play
         $('.main-controls .play-pause').html(playerBarPlayButton);
         
-        // Pause song
+        // Play song
         currentSoundFile.pause();  
-        
     }
 };
 
@@ -236,6 +243,6 @@ $(document).ready(function() {
      setCurrentAlbum(albumPicasso);
      $previousButton.click(previousSong);
      $nextButton.click(nextSong);
-     $playButton.click(togglePlayFromPlayerBar());
+     $playButton.click(togglePlayFromPlayerBar);
 });
 
